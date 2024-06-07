@@ -5,7 +5,7 @@ Requeriments:
 
 install ollama: $curl -fsSL https://ollama.com/install.sh | sh
 
-download and run de model: $ollama run openhermes
+download and run model: $ollama run openhermes
 
 in other window shell:
 
