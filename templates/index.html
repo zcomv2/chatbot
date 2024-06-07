@@ -1,1 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web ChatBot IA openhermes ollama</title>
 
+<style>
+      
+       /* Importar la fuente desde Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+      .background-image {
+  background-image: url('https://korman.es/chatbot/templates/grid-retro2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+      body {
+      font-family: 'Orbitron', sans-serif;
+      color: #ffffff; /* Cambia el color del texto si es necesario */
+    }
+	
+       p {font-size:32px;}
+       #chat-log {
+           height: 450px;
+           overflow-y: scroll;
+       }
+
+	/* Estilos específicos para dispositivos móviles */
+    @media (max-width: 767px) {
+      /* Ajustes de estilo para pantallas estrechas */
+    }
+
+    /* Estilos específicos para tabletas */
+    @media (min-width: 768px) and (max-width: 991px) {
+      /* Ajustes de estilo para tabletas */
+    }
+
+    /* Estilos específicos para pantallas de escritorio */
+    @media (min-width: 992px) {
+      /* Ajustes de estilo para pantallas de escritorio */
+    }
+   </style>
+
+</head>
+<body class="background-image">
+    <center>
+    <div id="a" style="height:20px;"></div>
+    <h1 style="font-size:48px;">ChatBot</h1>
+    <div id="chat-container">
+        <div id="chat-log"></div>
+        <input type="text" id="user-input" placeholder="Escribe tu mensaje..." autocomplete="off" autofocus style="width: 300px; height: 50px; font-size: 24px;">
+        <button id="send-btn" style="height:50px;">Enviar</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#send-btn').click(function() {
+                var userInput = $('#user-input').val();
+                $('#user-input').val('');
+
+                $.ajax({
+                    url: '/get_response',
+                    type: 'POST',
+                    data: { user_input: userInput },
+                    success: function(response) {
+                        $('<p>').text('Tú: ' + userInput).appendTo('#chat-log');
+                        $('<p>').text('ChatBot: ' + response).appendTo('#chat-log');
+                        $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
+                    }
+                });
+            });
+
+            $('#user-input').keypress(function(event) {
+                if (event.which === 13) {
+                    $('#send-btn').click();
+                }
+            });
+        });
+    </script>
+</center>
+</body>
+</html>
